@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>X Following Parser</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      margin: 12px;
+      min-width: 320px;
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: 16px;
+    }
+
+    #startBtn {
+      width: 100%;
+      border: 0;
+      border-radius: 8px;
+      padding: 10px 12px;
+      cursor: pointer;
+      background: #1d9bf0;
+      color: #fff;
+      font-weight: 600;
+    }
+
+    #startBtn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    #status {
+      margin-top: 10px;
+      font-size: 13px;
+      white-space: pre-wrap;
+      min-height: 36px;
+    }
+
+    .settings {
+      margin-top: 12px;
+      border-top: 1px solid #3d3d3d;
+      padding-top: 10px;
+    }
+
+    .label {
+      font-size: 12px;
+      margin-bottom: 4px;
+      display: block;
+    }
+
+    .input {
+      width: 100%;
+      box-sizing: border-box;
+      border: 1px solid #666;
+      border-radius: 6px;
+      padding: 8px;
+      margin-bottom: 8px;
+      font-size: 12px;
+      background: transparent;
+      color: inherit;
+    }
+
+    .row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+      font-size: 12px;
+    }
+
+    #saveSettingsBtn {
+      width: 100%;
+      border: 1px solid #666;
+      border-radius: 8px;
+      padding: 8px 10px;
+      cursor: pointer;
+      background: transparent;
+      color: inherit;
+      font-weight: 600;
+    }
+
+    .parse-dropdown {
+      margin-top: 12px;
+      border-top: 1px solid #3d3d3d;
+      padding-top: 10px;
+    }
+
+    .parse-dropdown > summary {
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 600;
+      list-style: none;
+      user-select: none;
+      padding: 6px 0;
+    }
+
+    .parse-dropdown > summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .parse-dropdown-panel {
+      margin-top: 6px;
+      padding: 8px 0 4px;
+    }
+  </style>
+</head>
+<body>
+  <h1>X Following Parser</h1>
+  <button id="startBtn">Start Parsing</button>
+  <div id="status"></div>
+  <div class="settings">
+    <label class="label" for="sheetWebhookUrl">Google Sheets Web App URL</label>
+    <input id="sheetWebhookUrl" class="input" placeholder="https://script.google.com/macros/s/.../exec">
+
+    <label class="label" for="sheetName">Sheet Name</label>
+    <input id="sheetName" class="input" placeholder="Sheet1">
+
+    <label class="label" for="spreadsheetId">Spreadsheet ID (recommended)</label>
+    <input id="spreadsheetId" class="input" placeholder="From URL: docs.google.com/spreadsheets/d/THIS_PART/edit">
+
+    <div class="row">
+      <input id="saveToSheet" type="checkbox" checked>
+      <label for="saveToSheet">Send results to Google Sheets</label>
+    </div>
+
+    <div class="row">
+      <input id="saveToTxt" type="checkbox" checked>
+      <label for="saveToTxt">Also save as .txt file</label>
+    </div>
+
+    <div class="row">
+      <input id="hoverEnrich" type="checkbox" checked>
+      <label for="hoverEnrich">Slow hover pass (synthetic hover on each avatar)</label>
+    </div>
+
+    <label class="label" for="hoverBetweenMs">Pause after each hover (ms) — higher = fewer limits</label>
+    <input id="hoverBetweenMs" class="input" type="number" min="600" step="100" value="2200">
+
+    <label class="label" for="hoverWaitMs">Wait for GraphQL after hover (ms)</label>
+    <input id="hoverWaitMs" class="input" type="number" min="350" step="50" value="1300">
+
+    <details class="parse-dropdown" id="parseFieldsDropdown">
+      <summary>Fields to parse</summary>
+      <div class="parse-dropdown-panel">
+        <div class="row">
+          <input id="parseUrlProfile" type="checkbox" checked>
+          <label for="parseUrlProfile">URL Profile</label>
+        </div>
+        <div class="row">
+          <input id="parseFollow" type="checkbox" checked>
+          <label for="parseFollow">Follow</label>
+        </div>
+        <div class="row">
+          <input id="parseFollowing" type="checkbox" checked>
+          <label for="parseFollowing">Following</label>
+        </div>
+        <div class="row">
+          <input id="parseBio" type="checkbox" checked>
+          <label for="parseBio">Bio</label>
+        </div>
+      </div>
+    </details>
+    
+    <button id="saveSettingsBtn">Save Settings</button>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
