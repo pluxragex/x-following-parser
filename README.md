@@ -32,8 +32,8 @@ Separation into `popup` + `content script` + `background` isolates the UI, page 
 
 ### 1) Clone repository
 ```bash
-git clone <YOUR_REPOSITORY_URL>
-cd x-parser
+git clone https://github.com/pluxragex/x-following-parser.git
+cd x-following-parser
 ```
 
 ### 2) Prepare Google Sheets script (optional, for sheet export)
